@@ -182,7 +182,7 @@ const [carregando, setCarregando] = useState(false);
 const sincronizarReceitas = async () => {
 setCarregando(true);
 try {
-const response = await fetch('https://raw.githubusercontent.com/matheusheenrique629/matheus/refs/heads/main/receitas.json?raw=true');
+const response = await fetch('https://raw.githubusercontent.com/viniproplayer/JUK/refs/heads/main/receitas.json?raw=true');
 const receitasDoServidor = await response.json();
 const novas = receitasDoServidor.filter(resServidor => !receitas.some(resLocal => resLocal.id === resServidor.id));
 
