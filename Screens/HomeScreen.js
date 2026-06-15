@@ -173,7 +173,7 @@ const RECEITAS_INICIAIS = [
  "6. Leve à geladeira até firmar."
  ]}, 
     videoUrl: 'https://github.com/viniproplayer/JUK/blob/main/videos/laranja.mp4?raw=true' 
-  },
+  }
 ];
 
 export default function HomeScreen({ navigation }) {
