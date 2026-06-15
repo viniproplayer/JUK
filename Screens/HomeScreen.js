@@ -7,6 +7,7 @@ const IMAGENS_LOCAIS = {
   'bolo_de_cenoura.jpg': require('./img/bolo_de_cenoura.jpg'),
   'torta_de_limao.jpg': require('./img/torta_de_limao.jpg'),
   'coxinha.jpg': require('./img/coxinha.jpg'),
+  'pudim.jpg': require('./img/pudim.jpg'),
   'bolo_fuba.jpg': require('./img/bolo_fuba.jpg'),
 };
 
@@ -44,7 +45,7 @@ const RECEITAS_INICIAIS = [
  "6. Modele bolinhas e coloque na assadeira.",
  "7. Asse em forno médio até dourar."
     ]}, 
-    videoUrl: 'https://raw.githubusercontent.com/jerog1971/projeto-mobile/main/videos/chocolate.mp4?raw=true'
+    videoUrl: 'https://github.com/viniproplayer/JUK/blob/main/videos/chocolate.mp4?raw=true'
   },
   { 
     id: "2", 
@@ -84,7 +85,7 @@ const RECEITAS_INICIAIS = [
  "5. Misture até formar uma massa homogênea.",
  "6. Coloque na forma untada e leve ao forno médio por cerca de 30 minutos."
     ]}, 
-    videoUrl: 'https://raw.githubusercontent.com/jerog1971/projeto-mobile/main/videos/fuba.mp4?raw=true' 
+    videoUrl: 'https://github.com/viniproplayer/JUK/blob/main/videos/fuba.mp4?raw=true' 
   },
   { 
     id: "3", 
@@ -131,7 +132,7 @@ const RECEITAS_INICIAIS = [
  "2. Mexa até engrossar.",
  "3. Despeje sobre o bolo e finalize com granulado."
 ]}, 
-    videoUrl: 'https://raw.githubusercontent.com/jerog1971/projeto-mobile/main/videos/cenoura.mp4?raw=true' 
+    videoUrl: 'https://github.com/viniproplayer/JUK/blob/main/videos/cenoura.mp4?raw=true' 
   },
   { 
     id: "4", 
@@ -171,7 +172,7 @@ const RECEITAS_INICIAIS = [
  "5. Coloque sobre a massa já fria.",
  "6. Leve à geladeira até firmar."
  ]}, 
-    videoUrl: 'https://raw.githubusercontent.com/jerog1971/projeto-mobile/main/videos/laranja.mp4?raw=true' 
+    videoUrl: 'https://github.com/viniproplayer/JUK/blob/main/videos/laranja.mp4?raw=true' 
   },
 ];
 
