@@ -2,135 +2,138 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Switch, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Platform } from 'react-native';
 
 export default function IngredientsScreen({ route, navigation }) {
-const { receitaCompleta } = route.params || {};
-// Estado para armazenar os ingredientes agrupados por categoria
-const [grupos, setGrupos] = useState({});
+  const { receitaCompleta } = route.params || {};
+  // Estado para armazenar os ingredientes agrupados por categoria
+  const [grupos, setGrupos] = useState({});
 
-useEffect(() => {
-// Verifica se os ingredientes existem e se estão no novo formato de objeto
-if (receitaCompleta?.ingredientes) {
-const novoEstado = {};
+  useEffect(() => {
+    // Verifica se os ingredientes existem e se estão no novo formato de objeto
+    if (receitaCompleta?.ingredientes) {
+      const novoEstado = {};
 
-// Itera sobre as chaves (ex: Massa, Recheio) e prepara o estado com 'checked'
-Object.entries(receitaCompleta.ingredientes).forEach(([titulo, lista]) => {
-novoEstado[titulo] = lista.map((ing, index) => ({
-id: `${titulo}-${index}`, // ID único combinando categoria e índice
-name: ing,
-checked: false
-}));
-});
+      // Itera sobre as chaves (ex: Massa, Recheio) e prepara o estado com 'checked'
+      Object.entries(receitaCompleta.ingredientes).forEach(([titulo, lista]) => {
+        novoEstado[titulo] = lista.map((ing, index) => ({
+          id: `${titulo}-${index}`, // ID único combinando categoria e índice
+          name: ing,
+          checked: false
+        }));
+      });
 
-setGrupos(novoEstado);
-}
-}, [receitaCompleta]);
+      setGrupos(novoEstado);
+    }
+  }, [receitaCompleta]);
 
-// Função para alternar o checkbox dentro de uma categoria específica
-const toggleCheck = (categoria, id) => {
-setGrupos(prev => ({
-...prev,
-[categoria]: prev[categoria].map(item =>
-item.id === id ? { ...item, checked: !item.checked } : item
-)
-}));
-};
+  // Função para alternar o checkbox dentro de uma categoria específica
+  const toggleCheck = (categoria, id) => {
+    setGrupos(prev => ({
+      ...prev,
+      [categoria]: prev[categoria].map(item =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      )
+    }));
+  };
 
-return (
-<SafeAreaView style={styles.safeArea}>
-<ScrollView
-style={styles.scrollView}
-contentContainerStyle={styles.scrollContent}
->
-<Text style={styles.title}>Ingredientes para:</Text>
-<Text style={styles.recipeSubtitle}>{receitaCompleta?.nome}</Text>
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+      >
+        <Text style={styles.title}>Ingredientes para:</Text>
+        <Text style={styles.recipeSubtitle}>{receitaCompleta?.nome}</Text>
 
-{/* Mapeia as categorias (Massa, Recheio, etc) */}
-{Object.entries(grupos).map(([categoria, listaDeItens]) => (
-<View key={categoria} style={styles.categoriaContainer}>
-{/* Título da Categoria */}
-<View style={styles.badgeCategoria}>
-<Text style={styles.badgeText}>{categoria}</Text>
-</View>
+        {/* Mapeia as categorias (Massa, Recheio, etc) */}
+        {Object.entries(grupos).map(([categoria, listaDeItens]) => (
+          <View key={categoria} style={styles.categoriaContainer}>
+            {/* Título da Categoria */}
+            <View style={styles.badgeCategoria}>
+              <Text style={styles.badgeText}>{categoria}</Text>
+            </View>
 
-{/* Lista de ingredientes daquela categoria */}
-{listaDeItens.map(item => (
-<View key={item.id} style={styles.itemRow}>
-<Switch
-value={item.checked}
-onValueChange={() => toggleCheck(categoria, item.id)}
-trackColor={{ true: "#008000" }}
-/>
-<Text style={[styles.itemText, item.checked && styles.checkedText]}>
-{item.name}
-</Text>
-</View>
-))}
-</View>
-))}
+            {/* Lista de ingredientes daquela categoria */}
+            {listaDeItens.map(item => (
+              <View key={item.id} style={styles.itemRow}>
+                <Switch
+                  value={item.checked}
+                  onValueChange={() => toggleCheck(categoria, item.id)}
+                  trackColor={{ true: "#008000" }}
+                />
+                <Text style={[styles.itemText, item.checked && styles.checkedText]}>
+                  {item.name}
+                </Text>
+              </View>
+            ))}
+          </View>
+        ))}
 
-<TouchableOpacity
-style={styles.button}
-onPress={() => navigation.navigate('Utensílios', { receitaCompleta })}
->
-<Text style={styles.buttonText}>Ver Utensílios 🥄</Text>
-</TouchableOpacity>
-</ScrollView>
-</SafeAreaView>
-);
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Utensílios', { receitaCompleta })}
+        >
+          <Text style={styles.buttonText}>Ver Utensílios 🥄</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-safeArea: {
-flex: 1,
-backgroundColor: '008000',
-minHeight: Platform.OS === 'web' ? '100vh' : '100%'
-},
-scrollView: { flex: 1 },
-scrollContent: {
-padding: 20,
-flexGrow: 1,
-paddingBottom: 60
-},
-title: { fontSize: 18, color: 'fff' },
-recipeSubtitle: { fontSize: 24, fontWeight: 'bold', color: '#0008000', marginBottom: 15 },
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#008000', 
+    minHeight: Platform.OS === 'web' ? '100vh' : '100%'
+  },
+  scrollView: { flex: 1 },
+  scrollContent: {
+    padding: 20,
+    flexGrow: 1,
+    paddingBottom: 60
+  },
+  title: { fontSize: 18, color: '#fff' }, 
+  recipeSubtitle: { fontSize: 24, fontWeight: 'bold', color: '#fff', marginBottom: 15 }, 
 
-// Estilos novos para organização por subtítulos
-categoriaContainer: {
-marginTop: 15,
-marginBottom: 10
-},
-badgeCategoria: {
-backgroundColor: 'green',
-paddingVertical: 4,
-paddingHorizontal: 12,
-borderRadius: 8,
-alignSelf: 'flex-start',
-marginBottom: 10
-},
-badgeText: {
-color: '0000000',
-fontWeight: 'bold',
-fontSize: 14,
-textTransform: 'uppercase'
-},
+  categoriaContainer: {
+    marginTop: 15,
+    marginBottom: 10
+  },
+  badgeCategoria: {
+    backgroundColor: '#fff', 
+    paddingVertical: 4,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+    marginBottom: 10
+  },
+  badgeText: {
+    color: '#008000', 
+    fontWeight: 'bold',
+    fontSize: 14,
+    textTransform: 'uppercase'
+  },
 
-itemRow: {
-flexDirection: 'row',
-alignItems: 'center',
-marginVertical: 4,
-padding: 12,
-backgroundColor: '#008000',
-borderRadius: 12,
-borderWidth: 1,
-borderColor: '#fff'
-},
-itemText: { marginLeft: 10, fontSize: 16, color: 'white', flex: 1 },
-checkedText: { textDecorationLine: 'line-through', color: 'green' },
-button: {
-backgroundColor: 'black',
-padding: 18,
-borderRadius: 15,
-marginTop: 30,
-marginBottom: 20
-},
-buttonText: { color: '#fff', textAlign: 'center', fontWeight: 'bold', fontSize: 16 }
+  itemRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 4,
+    padding: 12,
+    backgroundColor: '#006400', 
+    borderRadius: 12,
+    // Borda branca removida daqui
+  },
+  itemText: { marginLeft: 10, fontSize: 16, color: 'white', flex: 1 },
+  
+  checkedText: { 
+    textDecorationLine: 'line-through', 
+    color: 'rgba(255, 255, 255, 0.5)' 
+  },
+  
+  button: {
+    backgroundColor: 'black',
+    padding: 18,
+    borderRadius: 15,
+    marginTop: 30,
+    marginBottom: 20
+  },
+  buttonText: { color: '#fff', textAlign: 'center', fontWeight: 'bold', fontSize: 16 }
 });
